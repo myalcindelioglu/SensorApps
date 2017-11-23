@@ -4,15 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.myd.cobiwebapps.base.BaseFragment">
 
-    <TextView
-        android:id="@+id/fragment_text_text_view"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:layout_marginBottom="3dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay">
+        <TextView
+            android:id="@+id/fragment_text_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+    </ScrollView>
+
 
     <TextView
         android:id="@+id/fragment_text_empty_text_view"
@@ -29,5 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="invisible" />
+
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.myd.cobiwebapps.dagger.modules;
+package com.myd.cobiwebapps.dagger.modules.app;
 
 import com.myd.cobiwebapps.dagger.annotations.Local;
 import com.myd.cobiwebapps.dagger.annotations.Sensor;

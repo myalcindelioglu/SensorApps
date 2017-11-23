@@ -1,4 +1,4 @@
-package com.myd.cobiwebapps.dagger.modules;
+package com.myd.cobiwebapps.dagger.modules.app;
 
 import android.content.Context;
 

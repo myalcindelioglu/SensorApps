@@ -3,11 +3,11 @@ package com.myd.cobiwebapps.dagger.components.app;
 import android.app.Application;
 
 import com.myd.cobiwebapps.application.App;
-import com.myd.cobiwebapps.dagger.modules.ActivityBuilderModule;
-import com.myd.cobiwebapps.dagger.modules.AppModule;
-import com.myd.cobiwebapps.dagger.modules.LocalWebAppSourceModule;
-import com.myd.cobiwebapps.dagger.modules.SensorWebAppSourceModule;
-import com.myd.cobiwebapps.dagger.modules.WebAppRepoModule;
+import com.myd.cobiwebapps.dagger.modules.activities.ActivityBuilderModule;
+import com.myd.cobiwebapps.dagger.modules.app.AppModule;
+import com.myd.cobiwebapps.dagger.modules.app.LocalWebAppSourceModule;
+import com.myd.cobiwebapps.dagger.modules.app.SensorWebAppSourceModule;
+import com.myd.cobiwebapps.dagger.modules.app.WebAppRepoModule;
 
 import javax.inject.Singleton;
 

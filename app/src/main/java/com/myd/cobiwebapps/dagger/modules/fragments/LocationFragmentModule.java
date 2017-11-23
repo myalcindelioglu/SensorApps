@@ -1,8 +1,9 @@
 package com.myd.cobiwebapps.dagger.modules.fragments;
 
+import com.myd.cobiwebapps.contract.WebAppContract;
 import com.myd.cobiwebapps.data.source.repository.WebAppRepo;
 import com.myd.cobiwebapps.webapps.model.Location;
-import com.myd.cobiwebapps.webapps.presenter.LocationPresenter;
+import com.myd.cobiwebapps.webapps.presenter.Presenter;
 import com.myd.cobiwebapps.webapps.view.LocationFragment;
 import com.myd.cobiwebapps.webapps.view.MainActivity;
 import com.patloew.rxlocation.RxLocation;
@@ -20,9 +21,15 @@ import dagger.Provides;
 public class LocationFragmentModule {
 
     @Provides
-    LocationPresenter provideAccelerometerPresenter(WebAppRepo<Location> repository,
-                                                    LocationFragment view) {
-        return new LocationPresenter(repository, view);
+    WebAppContract.Presenter<Location> provideAccelerometerPresenter(WebAppRepo<Location> repository,
+                                                           LocationFragment view) {
+        return new Presenter<>(repository, view);
+    }
+
+    @Provides
+    WebAppContract.View<Location> provideAccelerometerView(
+            LocationFragment view) {
+        return view;
     }
 
     @Provides

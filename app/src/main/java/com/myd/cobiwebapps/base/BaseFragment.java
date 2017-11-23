@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.myd.cobiwebapps.R;
 import com.myd.cobiwebapps.contract.WebAppContract;
 
+import javax.inject.Inject;
+
 /**
  * Created by MYD on 11/22/17.
  *
@@ -21,7 +23,8 @@ import com.myd.cobiwebapps.contract.WebAppContract;
 public abstract class BaseFragment<T extends BaseModel>
         extends Fragment implements WebAppContract.View<T> {
 
-
+    @Inject
+    public WebAppContract.Presenter<T> presenter;
 
     public TextView textView;
     public TextView emptyTextView;
@@ -44,6 +47,40 @@ public abstract class BaseFragment<T extends BaseModel>
 
         progressBar = view.findViewById(R.id.fragment_text_progress_bar);
 
+        presenter.subscribe();
+        presenter.updateData();
+
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unSubscribe();
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showData(String data) {
+        progressBar.setVisibility(View.INVISIBLE);
+        textView.append(data + "\n");
+        textView.setVisibility(View.VISIBLE);
+        emptyTextView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void showEmptyState() {
+        progressBar.setVisibility(View.INVISIBLE);
+        emptyTextView.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.INVISIBLE);
     }
 }

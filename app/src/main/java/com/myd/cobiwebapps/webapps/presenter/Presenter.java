@@ -2,27 +2,27 @@ package com.myd.cobiwebapps.webapps.presenter;
 
 import android.text.TextUtils;
 
+import com.myd.cobiwebapps.base.BaseModel;
 import com.myd.cobiwebapps.contract.WebAppContract;
 import com.myd.cobiwebapps.data.source.repository.WebAppRepo;
-import com.myd.cobiwebapps.webapps.model.Accelerometer;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * Created by MYD on 11/22/17.
+ * Created by MYD on 11/23/17.
  *
  */
 
-public class AccelerometerPresenter implements WebAppContract.Presenter<Accelerometer> {
+public class Presenter<T extends BaseModel> implements WebAppContract.Presenter<T> {
 
     private CompositeDisposable subscriptions = new CompositeDisposable();
-    private WebAppRepo<Accelerometer> repository;
-    private WebAppContract.View<Accelerometer> view;
+    private WebAppRepo<T> repository;
+    private WebAppContract.View<T> view;
 
     @Inject
-    public AccelerometerPresenter(WebAppRepo<Accelerometer> repository, WebAppContract.View<Accelerometer> view) {
+    public Presenter(WebAppRepo<T> repository, WebAppContract.View<T> view) {
         this.repository = repository;
         this.view = view;
     }
@@ -58,7 +58,7 @@ public class AccelerometerPresenter implements WebAppContract.Presenter<Accelero
     }
 
     @Override
-    public void addData(Accelerometer model) {
+    public void addData(T model) {
         subscriptions.add(repository.addData(model)
                 .subscribe(
                         x -> {

@@ -1,4 +1,4 @@
-package com.myd.cobiwebapps.dagger.modules;
+package com.myd.cobiwebapps.dagger.modules.activities;
 
 import android.app.Activity;
 

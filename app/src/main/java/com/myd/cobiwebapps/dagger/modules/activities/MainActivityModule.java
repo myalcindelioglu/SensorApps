@@ -1,4 +1,4 @@
-package com.myd.cobiwebapps.dagger.modules;
+package com.myd.cobiwebapps.dagger.modules.activities;
 
 import com.myd.cobiwebapps.dagger.components.fragments.AccelerometerFragmentComponent;
 import com.myd.cobiwebapps.dagger.components.fragments.LocationFragmentComponent;

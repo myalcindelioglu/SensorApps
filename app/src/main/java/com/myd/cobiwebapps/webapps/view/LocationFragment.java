@@ -4,16 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.location.LocationRequest;
 import com.myd.cobiwebapps.base.BaseFragment;
 import com.myd.cobiwebapps.webapps.model.Location;
-import com.myd.cobiwebapps.webapps.presenter.LocationPresenter;
 import com.patloew.rxlocation.RxLocation;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -38,9 +33,6 @@ public class LocationFragment extends BaseFragment<Location> {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    LocationPresenter presenter;
-
-    @Inject
     RxPermissions rxPermissions;
 
     @Inject
@@ -51,14 +43,6 @@ public class LocationFragment extends BaseFragment<Location> {
         LocationFragment fragment = new LocationFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        presenter.subscribe();
-        presenter.updateData();
-        return view;
     }
 
     @Override
@@ -74,32 +58,6 @@ public class LocationFragment extends BaseFragment<Location> {
         if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
             compositeDisposable.dispose();
         }
-        presenter.unSubscribe();
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showData(String data) {
-        progressBar.setVisibility(View.INVISIBLE);
-        textView.append(data + "\n");
-        textView.setVisibility(View.VISIBLE);
-        emptyTextView.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void showEmptyState() {
-        progressBar.setVisibility(View.INVISIBLE);
-        emptyTextView.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.INVISIBLE);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -109,16 +67,15 @@ public class LocationFragment extends BaseFragment<Location> {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(x ->  {
             Disposable disposable = rxPermissions
-                    .request(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    .request(Manifest.permission.ACCESS_FINE_LOCATION)
                     .flatMap(granted -> {
                         LocationRequest locationRequest = LocationRequest.create()
                                 .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
                         if (granted) {
                             //noinspection MissingPermission
                             if (ActivityCompat.checkSelfPermission(getContext(),
-                                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                                    && ActivityCompat.checkSelfPermission(getContext(),
-                                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                    Manifest.permission.ACCESS_FINE_LOCATION) !=
+                                    PackageManager.PERMISSION_GRANTED ) {
                                 return Observable.empty();
                             }
                             return rxLocation
