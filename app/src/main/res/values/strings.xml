@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cobi Web Apps</string>
+    <string name="tab_text_1">Acc</string>
+    <string name="tab_text_2">Loc</string>
+    <string name="tab_text_3">Bat</string>
+    <string name="tab_text_4">Vib</string>
+
+    <string name="empty_data_text">No Data!</string>
+
+
+</resources>
