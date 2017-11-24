@@ -6,6 +6,7 @@ import com.myd.cobiwebapps.dagger.components.activities.MainActivityComponent;
 import com.myd.cobiwebapps.data.source.WebAppSource;
 import com.myd.cobiwebapps.data.source.repository.WebAppRepo;
 import com.myd.cobiwebapps.webapps.model.Accelerometer;
+import com.myd.cobiwebapps.webapps.model.Battery;
 import com.myd.cobiwebapps.webapps.model.Location;
 
 import javax.inject.Singleton;
@@ -37,6 +38,16 @@ public class WebAppRepoModule {
             @Local WebAppSource<Location> localAccelerometerWebApp,
             @Sensor WebAppSource<Location> sensorAccelerometerWebApp,
             Class<Location> clazz) {
+
+        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp, clazz);
+    }
+
+    @Singleton
+    @Provides
+    WebAppRepo<Battery> provideBatteryWebAppRepo(
+            @Local WebAppSource<Battery> localAccelerometerWebApp,
+            @Sensor WebAppSource<Battery> sensorAccelerometerWebApp,
+            Class<Battery> clazz) {
 
         return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp, clazz);
     }

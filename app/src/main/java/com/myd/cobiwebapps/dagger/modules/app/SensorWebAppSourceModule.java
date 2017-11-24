@@ -4,6 +4,7 @@ import com.myd.cobiwebapps.dagger.annotations.Sensor;
 import com.myd.cobiwebapps.data.source.WebAppSource;
 import com.myd.cobiwebapps.data.source.sensor.SensorWebAppSource;
 import com.myd.cobiwebapps.webapps.model.Accelerometer;
+import com.myd.cobiwebapps.webapps.model.Battery;
 import com.myd.cobiwebapps.webapps.model.Location;
 
 import javax.inject.Singleton;
@@ -30,6 +31,13 @@ public class SensorWebAppSourceModule {
     @Provides
     @Sensor
     WebAppSource<Location> provideLocationSensorWebAppSource() {
+        return new SensorWebAppSource<>();
+    }
+
+    @Singleton
+    @Provides
+    @Sensor
+    WebAppSource<Battery> provideBatterySensorWebAppSource() {
         return new SensorWebAppSource<>();
     }
 }

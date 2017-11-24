@@ -7,6 +7,7 @@ import com.myd.cobiwebapps.data.realm.DbMigration;
 import com.myd.cobiwebapps.data.source.WebAppSource;
 import com.myd.cobiwebapps.data.source.local.LocalWebAppSource;
 import com.myd.cobiwebapps.webapps.model.Accelerometer;
+import com.myd.cobiwebapps.webapps.model.Battery;
 import com.myd.cobiwebapps.webapps.model.Location;
 
 import javax.inject.Singleton;
@@ -37,6 +38,13 @@ public class LocalWebAppSourceModule {
     @Provides
     @Local
     WebAppSource<Location> providesLocationLocalWebAppSource(Realm realm, Class<Location> clazz) {
+        return new LocalWebAppSource<>(realm, clazz);
+    }
+
+    @Singleton
+    @Provides
+    @Local
+    WebAppSource<Battery> providesBatteryLocalWebAppSource(Realm realm, Class<Battery> clazz) {
         return new LocalWebAppSource<>(realm, clazz);
     }
 
@@ -74,5 +82,11 @@ public class LocalWebAppSourceModule {
     @Singleton
     Class<Location> provideLocationClass() {
         return Location.class;
+    }
+
+    @Provides
+    @Singleton
+    Class<Battery> provideBatteryClass() {
+        return Battery.class;
     }
 }

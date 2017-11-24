@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 
 public class AccelerometerFragment extends BaseFragment<Accelerometer> {
-    private static final String TAG = "AccelerometerFragment";
 
     @Inject
     AccelerometerSensorListener accelerometerSensorListener;

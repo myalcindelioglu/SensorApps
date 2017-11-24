@@ -3,8 +3,10 @@ package com.myd.cobiwebapps.dagger.modules.fragments;
 import android.support.v4.app.Fragment;
 
 import com.myd.cobiwebapps.dagger.components.fragments.AccelerometerFragmentComponent;
+import com.myd.cobiwebapps.dagger.components.fragments.BatteryFragmentComponent;
 import com.myd.cobiwebapps.dagger.components.fragments.LocationFragmentComponent;
 import com.myd.cobiwebapps.webapps.view.AccelerometerFragment;
+import com.myd.cobiwebapps.webapps.view.BatteryFragment;
 import com.myd.cobiwebapps.webapps.view.LocationFragment;
 
 import dagger.Binds;
@@ -31,4 +33,9 @@ public abstract class FragmentBuilderModule {
     @IntoMap
     @FragmentKey(LocationFragment.class)
     abstract AndroidInjector.Factory<? extends Fragment> bindsLocationFragment(LocationFragmentComponent.Builder builder);
+
+    @Binds
+    @IntoMap
+    @FragmentKey(BatteryFragment.class)
+    abstract AndroidInjector.Factory<? extends Fragment> bindsBatteryFragment(BatteryFragmentComponent.Builder builder);
 }

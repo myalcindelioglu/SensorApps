@@ -19,7 +19,7 @@ public class Battery extends RealmObject
         //must declare a public constructor with no arguments if it contains custom constructors.
     }
 
-    public Battery(Integer percentage, Boolean isCharging, Long date) {
+    public Battery(Float percentage, Boolean isCharging, Long date) {
         this.percentage = percentage;
         this.isCharging = isCharging;
         this.date = date;
@@ -27,7 +27,7 @@ public class Battery extends RealmObject
 
     @PrimaryKey
     private Integer id;
-    private Integer percentage;
+    private Float percentage;
     private Boolean isCharging;
     private Long date;
 
@@ -39,11 +39,11 @@ public class Battery extends RealmObject
         this.id = id;
     }
 
-    public Integer getPercentage() {
+    public Float getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Integer percentage) {
+    public void setPercentage(Float percentage) {
         this.percentage = percentage;
     }
 

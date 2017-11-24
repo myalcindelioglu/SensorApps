@@ -15,6 +15,10 @@ import com.myd.cobiwebapps.contract.WebAppContract;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by MYD on 11/22/17.
  *
@@ -23,12 +27,18 @@ import javax.inject.Inject;
 public abstract class BaseFragment<T extends BaseModel>
         extends Fragment implements WebAppContract.View<T> {
 
+    private Unbinder butterKnifeUnBinder;
+
     @Inject
     public WebAppContract.Presenter<T> presenter;
 
+    @BindView(R.id.fragment_text_text_view)
     public TextView textView;
+
+    @BindView(R.id.fragment_text_empty_text_view)
     public TextView emptyTextView;
 
+    @BindView(R.id.fragment_text_progress_bar)
     public ProgressBar progressBar;
 
     public BaseFragment() {
@@ -39,13 +49,9 @@ public abstract class BaseFragment<T extends BaseModel>
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_text, container, false);
+        butterKnifeUnBinder = ButterKnife.bind(this, view);
 
-        textView = view.findViewById(R.id.fragment_text_text_view);
         textView.setMovementMethod(new ScrollingMovementMethod());
-
-        emptyTextView = view.findViewById(R.id.fragment_text_empty_text_view);
-
-        progressBar = view.findViewById(R.id.fragment_text_progress_bar);
 
         presenter.subscribe();
         presenter.updateData();
@@ -57,6 +63,7 @@ public abstract class BaseFragment<T extends BaseModel>
     public void onDestroy() {
         super.onDestroy();
         presenter.unSubscribe();
+        butterKnifeUnBinder.unbind();
     }
 
     @Override
