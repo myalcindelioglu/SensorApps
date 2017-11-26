@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.myd.cobiwebapps.base.BaseFragment;
-import com.myd.cobiwebapps.webapps.model.Accelerometer;
 import com.myd.cobiwebapps.webapps.model.Battery;
 
 import java.util.concurrent.TimeUnit;

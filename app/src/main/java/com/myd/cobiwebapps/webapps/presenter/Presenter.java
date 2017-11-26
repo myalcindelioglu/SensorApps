@@ -65,7 +65,7 @@ public class Presenter<T extends BaseModel> implements WebAppContract.Presenter<
                             if (!x.isEmpty()) {
                                 view.showData(x);
                             }
-                        }
+                        }, e -> view.showError()
                 ));
 
     }

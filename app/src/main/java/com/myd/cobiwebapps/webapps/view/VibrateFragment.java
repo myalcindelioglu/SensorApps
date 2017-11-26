@@ -2,7 +2,6 @@ package com.myd.cobiwebapps.webapps.view;
 
 
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
