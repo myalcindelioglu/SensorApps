@@ -24,8 +24,7 @@ public class WebAppRepo<T extends BaseModel> implements WebAppSource<T> {
 
     @Inject
     public WebAppRepo(@Local WebAppSource<T> localWebAppSource,
-                      @Sensor WebAppSource<T> sensorWebAppSource,
-                      Class<T> clazz) {
+                      @Sensor WebAppSource<T> sensorWebAppSource) {
         this.localWebAppSource = localWebAppSource;
         this.sensorWebAppSource = sensorWebAppSource;
     }

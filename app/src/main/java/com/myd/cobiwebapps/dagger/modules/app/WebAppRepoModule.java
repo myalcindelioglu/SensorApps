@@ -26,29 +26,26 @@ public class WebAppRepoModule {
     @Provides
     WebAppRepo<Accelerometer> provideAccelerometerWebAppRepo(
             @Local WebAppSource<Accelerometer> localAccelerometerWebApp,
-            @Sensor WebAppSource<Accelerometer> sensorAccelerometerWebApp,
-            Class<Accelerometer> clazz) {
+            @Sensor WebAppSource<Accelerometer> sensorAccelerometerWebApp) {
 
-        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp, clazz);
+        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp);
     }
 
     @Singleton
     @Provides
     WebAppRepo<Location> provideLocationWebAppRepo(
             @Local WebAppSource<Location> localAccelerometerWebApp,
-            @Sensor WebAppSource<Location> sensorAccelerometerWebApp,
-            Class<Location> clazz) {
+            @Sensor WebAppSource<Location> sensorAccelerometerWebApp) {
 
-        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp, clazz);
+        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp);
     }
 
     @Singleton
     @Provides
     WebAppRepo<Battery> provideBatteryWebAppRepo(
             @Local WebAppSource<Battery> localAccelerometerWebApp,
-            @Sensor WebAppSource<Battery> sensorAccelerometerWebApp,
-            Class<Battery> clazz) {
+            @Sensor WebAppSource<Battery> sensorAccelerometerWebApp) {
 
-        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp, clazz);
+        return new WebAppRepo<>(localAccelerometerWebApp, sensorAccelerometerWebApp);
     }
 }
