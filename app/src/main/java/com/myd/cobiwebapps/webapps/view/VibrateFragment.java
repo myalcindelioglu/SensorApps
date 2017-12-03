@@ -21,6 +21,8 @@ import static android.content.Context.VIBRATOR_SERVICE;
 
 public class VibrateFragment extends Fragment {
 
+    private static final long VIBRATE_TIME = 800L;
+
     private Unbinder butterKnifeUnBinder;
 
     @BindView(R.id.fragment_vibrate_button)
@@ -52,9 +54,11 @@ public class VibrateFragment extends Fragment {
         butterKnifeUnBinder.unbind();
     }
 
+
     @SuppressWarnings("ConstantConditions")
     @OnClick(R.id.fragment_vibrate_button)
     void clickOnVibrateButton() {
-        ((Vibrator)getContext().getSystemService(VIBRATOR_SERVICE)).vibrate(800L);
+        ((Vibrator)getContext().getSystemService(VIBRATOR_SERVICE)).vibrate(VIBRATE_TIME);
     }
+
 }
