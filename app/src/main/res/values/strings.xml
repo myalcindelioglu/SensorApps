@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cobi Web Apps</string>
+    <string name="app_name">Sensor App</string>
     <string name="tab_text_1">Acc</string>
     <string name="tab_text_2">Loc</string>
     <string name="tab_text_3">Bat</string>
