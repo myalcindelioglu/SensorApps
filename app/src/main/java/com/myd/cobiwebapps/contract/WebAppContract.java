@@ -13,7 +13,7 @@ public interface WebAppContract {
     interface View<T extends BaseModel> extends BaseView<Presenter<T>> {
         void showProgress();
 
-        void showData(String data);
+        void showData(T data);
 
         void showError();
 
@@ -22,8 +22,10 @@ public interface WebAppContract {
     }
 
     interface Presenter<T extends BaseModel> extends BasePresenter {
-        void updateData();
+        void fetchAndUpdate();
 
-        void addData(T model);
+        void addDataAndUpdate(T model);
+
+        void getDataAndUpdate();
     }
 }

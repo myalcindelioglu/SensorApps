@@ -6,7 +6,6 @@ import com.myd.cobiwebapps.webapps.model.Location;
 import com.myd.cobiwebapps.webapps.presenter.Presenter;
 import com.myd.cobiwebapps.webapps.view.LocationFragment;
 import com.myd.cobiwebapps.webapps.view.MainActivity;
-import com.patloew.rxlocation.RxLocation;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;
@@ -35,11 +34,6 @@ public class LocationFragmentModule {
     @Provides
     RxPermissions provideRxPermissions(MainActivity activity) {
         return new RxPermissions(activity);
-    }
-
-    @Provides
-    RxLocation provideRxLocation(MainActivity activity) {
-        return new RxLocation(activity);
     }
 
 }

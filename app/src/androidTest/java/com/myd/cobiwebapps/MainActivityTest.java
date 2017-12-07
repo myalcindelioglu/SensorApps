@@ -19,16 +19,12 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static org.hamcrest.Matchers.allOf;
 
 
 /**
@@ -48,10 +44,8 @@ public class MainActivityTest {
             getInstrumentation().getUiAutomation().executeShellCommand(
                     "pm grant " + getInstrumentation().getTargetContext().getPackageName()
                             + " android.permission.ACCESS_FINE_LOCATION");
-            getInstrumentation().getUiAutomation().executeShellCommand(
-                    "pm grant " + getInstrumentation().getTargetContext().getPackageName()
-                            + " android.permission.VIBRATE");
         }
+
     }
 
 
@@ -60,13 +54,14 @@ public class MainActivityTest {
         activityTestRule.launchActivity(new Intent());
         onView(withId(R.id.container)).perform(withCustomConstraints(swipeLeft(),isDisplayingAtLeast(85)));
         onView(withId(R.id.container)).perform(withCustomConstraints(swipeLeft(),isDisplayingAtLeast(85)));
-        onView(withId(R.id.container)).perform(withCustomConstraints(swipeLeft(),isDisplayingAtLeast(85)));
 
-        onView(allOf(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE), withId(R.id.fragment_vibrate_button))).check(matches(isDisplayed()));
+        onView(withId(R.id.fragment_battery_root_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
         onView(withId(R.id.container)).perform(withCustomConstraints(swipeRight(),isDisplayingAtLeast(85)));
+        onView(withId(R.id.fragment_location_root_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
         onView(withId(R.id.container)).perform(withCustomConstraints(swipeRight(),isDisplayingAtLeast(85)));
-        onView(withId(R.id.container)).perform(withCustomConstraints(swipeRight(),isDisplayingAtLeast(85)));
+        onView(withId(R.id.fragment_accelerometer_root_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {

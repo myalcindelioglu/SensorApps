@@ -10,7 +10,6 @@ import com.myd.cobiwebapps.webapps.model.Location;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
 
 import java.util.List;
@@ -19,7 +18,7 @@ import io.reactivex.observers.TestObserver;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by MYD on 11/26/17.
@@ -67,10 +66,15 @@ public class LocalWebAppSourceTest {
     @Test
     public void testAddData() throws Exception {
         Location location = WebAppTestUtils.generateLocation();
-        TestObserver<String> test = source.addData(location).test();
+        TestObserver<Location> test = source.addData(location).test();
+        test.assertNoErrors();
+        test.assertComplete();
         test.assertValueCount(1);
-        String expected = getFromDb().get(0).toString();
-        test.assertValue(expected);
+        Location expected = getFromDb().get(0);
+        assertEquals(expected.getId(), location.getId());
+        assertEquals(expected.getLat(), location.getLat());
+        assertEquals(expected.getLon(), location.getLon());
+        assertEquals(expected.getDate(), location.getDate());
     }
 
     @Test(expected = UnsupportedOperationException.class)

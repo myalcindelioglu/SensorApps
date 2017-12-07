@@ -46,14 +46,13 @@ public class WebAppRepoTest {
     @Test
     public void testAddData() throws Exception {
         Battery battery = WebAppTestUtils.generateBattery(false);
-        when(sensorWebAppSource.addData(battery)).then(x -> Single.just(battery.toString()));
-        when(localWebAppSource.addData(battery)).then(x -> Single.just(battery.toString()));
+        when(localWebAppSource.addData(battery)).then(x -> Single.just(battery));
+        Single<Battery> batterySingle = repo.addData(battery);
 
-        TestObserver<String> test = repo.addData(battery).test();
+        TestObserver<Battery> test = batterySingle.test();
         test.assertNoErrors();
-        test.assertValue(battery.toString());
+        test.assertValue(battery);
         test.assertComplete();
-
     }
 
     @Test
@@ -61,9 +60,9 @@ public class WebAppRepoTest {
         Battery battery = WebAppTestUtils.generateBattery(true);
         when(localWebAppSource.getData()).then(x ->
                 Single.just(Collections.singletonList(battery)));
-        TestObserver<List<String>> test = repo.updateInfo().test();
+        TestObserver<List<Battery>> test = repo.updateInfo().test();
         test.assertNoErrors();
-        test.assertValue(Collections.singletonList(battery.toString()));
+        test.assertValue(Collections.singletonList(battery));
         test.assertComplete();
     }
 }

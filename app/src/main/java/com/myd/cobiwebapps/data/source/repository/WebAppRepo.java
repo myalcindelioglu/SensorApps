@@ -10,7 +10,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -29,22 +29,26 @@ public class WebAppRepo<T extends BaseModel> implements WebAppSource<T> {
         this.sensorWebAppSource = sensorWebAppSource;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Single<List<T>> getData() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Single<String> addData(@Nullable T model) {
-        return sensorWebAppSource.addData(model)
-                .flatMap(x -> localWebAppSource.addData(model));
+    public Maybe<T> getSingleData() {
+        return sensorWebAppSource
+                .getSingleData()
+                .flatMap(x -> localWebAppSource.addData(x).toMaybe());
     }
 
     @Override
-    public Single<List<String>> updateInfo() {
-        return localWebAppSource.getData()
-                .flatMapObservable(Observable::fromIterable)
-                .map(Object::toString)
-                .toList();
+    public Single<T> addData(@Nullable T model) {
+        return localWebAppSource.addData(model);
+    }
+
+    @Override
+    public Single<List<T>> updateInfo() {
+        return localWebAppSource.getData();
     }
 }

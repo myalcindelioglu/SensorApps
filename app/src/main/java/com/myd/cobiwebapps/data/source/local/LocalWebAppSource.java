@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -34,19 +35,26 @@ public class LocalWebAppSource<T extends BaseModel>
     @Override
     public Single<List<T>> getData() {
         RealmResults<T> models = realm.where(clazz).findAll();
-        return models.isEmpty() ? Single.just(new ArrayList<>()): Single.just(realm.copyFromRealm(models));
+        return models.isEmpty() ?
+                Single.just(new ArrayList<>()) :
+                Single.just(realm.copyFromRealm(models));
     }
 
     @Override
-    public Single<String> addData(T model) {
+    public Maybe<T> getSingleData() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Single<T> addData(T model) {
         int nextId = getNextKey();
         model.setId(nextId);
         realm.executeTransaction(x -> realm.insertOrUpdate(model));
-        return Single.just(model.toString());
+        return Single.just(model);
     }
 
     @Override
-    public Single<List<String>> updateInfo() {
+    public Single<List<T>> updateInfo() {
         throw new UnsupportedOperationException();
     }
 

@@ -1,7 +1,5 @@
 package com.myd.cobiwebapps.webapps.presenter;
 
-import android.text.TextUtils;
-
 import com.myd.cobiwebapps.base.BaseModel;
 import com.myd.cobiwebapps.contract.WebAppContract;
 import com.myd.cobiwebapps.data.source.repository.WebAppRepo;
@@ -40,7 +38,7 @@ public class Presenter<T extends BaseModel> implements WebAppContract.Presenter<
     }
 
     @Override
-    public void updateData() {
+    public void fetchAndUpdate() {
         view.showProgress();
         subscriptions.add(repository.updateInfo()
                 .subscribe(
@@ -48,8 +46,9 @@ public class Presenter<T extends BaseModel> implements WebAppContract.Presenter<
                             if (x.size() <= 0) {
                                 view.showEmptyState();
                             } else {
-                                String data = TextUtils.join("\n ", x);
-                                view.showData(data);
+                                for (T model : x) {
+                                    view.showData(model);
+                                }
                             }
                         },
                         e -> view.showError())
@@ -58,15 +57,21 @@ public class Presenter<T extends BaseModel> implements WebAppContract.Presenter<
     }
 
     @Override
-    public void addData(T model) {
+    public void addDataAndUpdate(T model) {
         subscriptions.add(repository.addData(model)
                 .subscribe(
-                        x -> {
-                            if (!x.isEmpty()) {
-                                view.showData(x);
-                            }
-                        }, e -> view.showError()
+                        x -> view.showData(x),
+                        e -> view.showError()
                 ));
 
+    }
+
+    @Override
+    public void getDataAndUpdate() {
+        subscriptions.add(repository.getSingleData()
+                .subscribe(
+                        x -> view.showData(x),
+                        e -> view.showError()
+                ));
     }
 }

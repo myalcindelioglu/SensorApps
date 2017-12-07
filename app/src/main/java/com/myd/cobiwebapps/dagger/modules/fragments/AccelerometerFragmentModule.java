@@ -3,11 +3,12 @@ package com.myd.cobiwebapps.dagger.modules.fragments;
 import android.content.Context;
 import android.hardware.SensorManager;
 
+import com.myd.cobiwebapps.contract.SensorContract;
 import com.myd.cobiwebapps.contract.WebAppContract;
 import com.myd.cobiwebapps.data.source.repository.WebAppRepo;
 import com.myd.cobiwebapps.webapps.model.Accelerometer;
-import com.myd.cobiwebapps.webapps.presenter.AccelerometerSensorListener;
 import com.myd.cobiwebapps.webapps.presenter.Presenter;
+import com.myd.cobiwebapps.webapps.sensor.AccelerometerSensorListener;
 import com.myd.cobiwebapps.webapps.view.AccelerometerFragment;
 import com.myd.cobiwebapps.webapps.view.MainActivity;
 
@@ -23,8 +24,9 @@ import dagger.Provides;
 public class AccelerometerFragmentModule {
 
     @Provides
-    WebAppContract.Presenter<Accelerometer> provideAccelerometerPresenter(WebAppRepo<Accelerometer> repository,
-                                                           AccelerometerFragment view) {
+    WebAppContract.Presenter<Accelerometer> provideAccelerometerPresenter(
+            WebAppRepo<Accelerometer> repository,
+            AccelerometerFragment view) {
         return new Presenter<>(repository, view);
     }
 
@@ -35,8 +37,14 @@ public class AccelerometerFragmentModule {
     }
 
     @Provides
-    AccelerometerSensorListener provideSensorListener(WebAppContract.Presenter<Accelerometer> presenter) {
-        return new AccelerometerSensorListener(presenter);
+    AccelerometerSensorListener provideSensorListener(SensorContract.SensorObserver<Accelerometer> observer) {
+        return new AccelerometerSensorListener(observer);
+    }
+
+    @Provides
+    SensorContract.SensorObserver<Accelerometer> providesAccelerometerSensorObserver(
+            WebAppContract.Presenter<Accelerometer> presenter) {
+        return presenter::addDataAndUpdate;
     }
 
     @Provides

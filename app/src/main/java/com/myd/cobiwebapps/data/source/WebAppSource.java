@@ -4,6 +4,7 @@ import com.myd.cobiwebapps.base.BaseModel;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -13,7 +14,8 @@ import io.reactivex.Single;
 
 public interface WebAppSource<T extends BaseModel> {
     Single<List<T>> getData();
-    Single<String> addData(T model);
-    Single<List<String>> updateInfo();
+    Maybe<T> getSingleData();
+    Single<T> addData(T model);
+    Single<List<T>> updateInfo();
 
 }

@@ -27,11 +27,11 @@ public class Accelerometer extends RealmObject
     }
 
     @PrimaryKey
-    private Integer id;
-    private Float x;
-    private Float y;
-    private Float z;
-    private Long date;
+    private Integer id = 0;
+    private Float x = 0f;
+    private Float y = 0f;
+    private Float z = 0f;
+    private Long date = 0L;
 
     public Integer getId() {
         return id;

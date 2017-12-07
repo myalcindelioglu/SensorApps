@@ -76,16 +76,14 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
                 return AccelerometerFragment.newInstance();
             } else if (position == 1) {
                 return LocationFragment.newInstance();
-            } else if (position == 2) {
-                return BatteryFragment.newInstance();
             } else {
-                return VibrateFragment.newInstance();
+                return BatteryFragment.newInstance();
             }
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 
